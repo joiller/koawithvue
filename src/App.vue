@@ -8,18 +8,18 @@
 </template>
 
 <script>
-  import login from './components/login'
+import login from './components/login'
 export default {
   name: 'App',
-  components:{
+  components: {
     login
   },
-  data(){
+  data () {
     return {
-      user:{
-        id:0,
-        name:'1231321',
-        email:''
+      user: {
+        id: 0,
+        name: '1231321',
+        email: ''
       }
     }
   }

@@ -30,7 +30,8 @@
     "mysql2": "^1.6.5",
     "axios": "^0.19.0",
     "koa-jwt": "^3.5.1",
-    "sequelize-auto-disconnectable": "^0.4.30"
+    "sequelize-auto-disconnectable": "^0.4.30",
+    "koa-cors2": "^0.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

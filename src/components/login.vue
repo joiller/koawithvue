@@ -13,21 +13,38 @@
 </template>
 
 <script>
-    export default {
-        name: "login",
-      props:['cls'],
-      data(){
-          return {
-            name:'',
-      password:''
+export default {
+  name: 'login',
+  props: ['cls'],
+  data () {
+    return {
+      name: 'jhl',
+      password: 'jhl233666'
     }
-      },
-      methods:{
-          loginTo(){
-            this.$router.push('/')
+  },
+  methods: {
+    loginTo () {
+      console.log(this.password)
+      this.$http.post('/username', {name: this.name, password: this.password})
+        .then(res => {
+          if (res.data.success) {
+            sessionStorage.setItem('token-by-vue', res.data.token)
+            this.$data={
+              type: 'success',
+              message: '登录成功！'
+            }
+            this.$router.push('/username')
+          } else {
+            this.$data.error(res.data.info)
+            sessionStorage.setItem('token-by-vue', null)
           }
-      }
+        }, err => {
+          this.$data.error('请求错误！')
+          sessionStorage.setItem('token-by-vue', null)
+        })
     }
+  }
+}
 </script>
 
 <style scoped>
