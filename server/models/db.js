@@ -41,7 +41,7 @@ const todolist = sequelize.define('todolist',{
     allowNull: false,
   },
   content:{
-    type:Sequelize.CHAR(255)
+    type:Sequelize.CHAR(255),
     allowNull:false
   },
   status:{

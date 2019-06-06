@@ -4,6 +4,9 @@
         <h1 v-if="user.count===0">你的事情做完啦！</h1>
         <h1 v-if="user.count!==0">你还有{{user.count}}件事情没做</h1>
       </h1>
+      <label for="content"></label>
+      <input type="text" placeholder="输入待办事项" name="content" v-model="content">
+      <button v-on:click="createTodo">添加</button>
     </div>
 </template>
 
@@ -23,6 +26,29 @@
           this.user.name = decoded.name
           this.user.id = decoded.id
         }
+      },
+      createTodo(){
+        if (this.user.id) {
+          if (this.content) {
+            const data = {
+              "id":this.user.id,
+              'name':this.user.name,
+              'content':this.content,
+              'status':true
+            }
+            this.$http.post('/createTodo',data)
+              .then(res=>{
+                if (res.success) {
+                  this.user.list.push({
+                    "id":this.user.id,
+                    'name':this.user.name,
+                    'content':data.content,
+                    'status':true
+                  })
+                }
+              })
+          }
+        }
       }
     },
     data(){
@@ -33,7 +59,8 @@
           todos:'',
           list:[],
           count:0
-        }
+        },
+        content:''
       }
     }
   }

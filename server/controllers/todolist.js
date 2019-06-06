@@ -10,13 +10,18 @@ const getTodoListByid = async function () {
 }
 
 
-const createTodoList = async function (data) {
+const createTodoList = async function (ctx) {
+  console.log(ctx.request.body)
   await todolist.create({
-    user_id: data.id,
-    content: data.content,
-    status: data.status
+    user_id: ctx.request.body.id,
+    content: ctx.request.body.content,
+    status: ctx.request.body.status
+  }).then(value => {
+    ctx.body = {
+      success:true
+    }
   })
-  console.log(`create at uid:${data.id}`)
+  console.log(`create at user:${ctx.request.body.name}`)
 }
 
 module.exports = {
