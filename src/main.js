@@ -7,8 +7,17 @@ import Axios from 'axios'
 
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
+router.beforeEach((to,from,next)=>{
+  const token = sessionStorage.getItem('token-by-vue')
+  if (to.path === '/'){
+    next()
+  }else {
+    console.log('set authorization')
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer '+token
+    next()
+  }
+})
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

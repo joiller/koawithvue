@@ -16,6 +16,23 @@ app.use(async (ctx,next)=>{
   console.log(`${ctx.method} ${ctx.url} ${(Date.now()-start)/1000}s`)
 })
 
+app.use(async (ctx,next)=>{
+  try {
+    await next()
+  }catch (e) {
+    if (e.status === 401) {
+      ctx.status = 401
+      ctx.body = {
+        success:false,
+        token:null,
+        info:'Protected resource, use Authorization header to get access'
+      }
+    }else {
+      console.log(e)
+    }
+  }
+})
+
 app.use(router.routes())
 
 app.listen(3000)

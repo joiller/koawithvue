@@ -18,6 +18,7 @@ export default {
   props: ['cls'],
   data () {
     return {
+      id:1,
       name: 'jhl',
       password: 'jhl233666'
     }
@@ -25,21 +26,24 @@ export default {
   methods: {
     loginTo () {
       console.log(this.password)
+      console.log(`data:${this.name}`)
       this.$http.post('/username', {name: this.name, password: this.password})
         .then(res => {
           if (res.data.success) {
             sessionStorage.setItem('token-by-vue', res.data.token)
             this.$data={
               type: 'success',
-              message: '登录成功！'
+              message: '登录成功！',
             }
+            console.log('登录成功')
             this.$router.push('/username')
           } else {
-            this.$data.error(res.data.info)
+            console.log('登录失败')
+            this.$data.error=res.data.info
             sessionStorage.setItem('token-by-vue', null)
           }
         }, err => {
-          this.$data.error('请求错误！')
+          this.$data.error='请求错误！'
           sessionStorage.setItem('token-by-vue', null)
         })
     }

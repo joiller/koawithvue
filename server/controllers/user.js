@@ -1,5 +1,5 @@
 const user = require('../models/db').user
-const jwt = require('koa-jwt')
+const jwt = require('jsonwebtoken')
 
 const getUserById = async function (ctx) {
   await user.findOne({where: {id: ctx.params.id}})
@@ -14,7 +14,7 @@ const getUserById = async function (ctx) {
 const getUserByName = async function (ctx) {
   await user.findOne({where: {name: ctx.request.body.name}})
     .then(userinfo => {
-      if (userinfo.password !== ctx.request.password || !userinfo) {
+      if (userinfo.password !== ctx.request.body.password || !userinfo) {
         console.log(userinfo.password,ctx.request.password)
         ctx.body = {
           success: false,
@@ -26,7 +26,9 @@ const getUserByName = async function (ctx) {
           id: userinfo.id
         }
         const secret = 'vue-koa-secret'
-        const token = jwt(userToken, secret)
+        const token = jwt.sign(userToken ,secret)
+        console.log(token)
+
         ctx.body = {
           success: true,
           token: token

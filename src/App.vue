@@ -2,7 +2,7 @@
   <div id="app">
     <img src="./assets/logo.png">
 <!--    <login v-bind:person="user"></login>-->
-    <router-view v-bind:person="user"></router-view>
+    <router-view></router-view>
 
   </div>
 </template>
@@ -14,15 +14,16 @@ export default {
   components: {
     login
   },
-  data () {
-    return {
-      user: {
-        id: 0,
-        name: '1231321',
-        email: ''
-      }
-    }
-  }
+  // data () {
+  //   return {
+  //     user: {
+  //       id: login.id,
+  //       name: login.data().name,
+  //
+  //       email: ''
+  //     }
+  //   }
+  // }
 }
 </script>
 

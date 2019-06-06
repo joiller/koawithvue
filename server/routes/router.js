@@ -8,4 +8,5 @@ router.get('/', async ctx => {
 router.get('/userid/:id', async ctx => { await user.getUserById(ctx) })
 router.post('/username', async ctx => { await user.getUserByName(ctx) })
 
+
 module.exports = router

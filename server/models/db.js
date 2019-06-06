@@ -35,7 +35,22 @@ const User = sequelize.define('user', {
   }
 })
 
+const todolist = sequelize.define('todolist',{
+  user_id:{
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  content:{
+    type:Sequelize.CHAR(255)
+    allowNull:false
+  },
+  status:{
+    type:Sequelize.BOOLEAN,
+    allowNull:false
+  }
+})
+
 sequelize.sync()
-const tables = {'user': User}
+const tables = {'user': User,'todolist':todolist}
 
 module.exports = tables
