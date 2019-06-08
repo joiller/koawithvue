@@ -18,6 +18,14 @@ module.exports = {
       '/createTodo':{
         target:'http://localhost:3000',
         changeOrigin: true
+      },
+      '/getTodoListByid':{
+        target:'http://localhost:3000',
+        changeOrigin: true
+      },
+      '/toggleStatus':{
+        target:'http://localhost:3000',
+        changeOrigin: true
       }
     },
 

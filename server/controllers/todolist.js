@@ -1,11 +1,13 @@
 const todolist = require('../models/db').todolist
 const jwt = require('jsonwebtoken')
 
-const getTodoListByid = async function () {
+const getTodoListByid = async function (ctx) {
   await todolist.findAll({
     where:{
-      user_id:id
+      user_id:ctx.request.body.id
     }
+  }).then(value => {
+    ctx.body = JSON.stringify(value)
   })
 }
 
@@ -24,7 +26,29 @@ const createTodoList = async function (ctx) {
   console.log(`create at user:${ctx.request.body.name}`)
 }
 
+const toggleStatus = async function (ctx){
+  console.log(ctx.request.body)
+  if (ctx.request.body.status) {
+    await todolist.update({status: false},{
+      where: {
+        id: ctx.request.body.todoid
+      }
+    }).then(value => {
+      ctx.body = JSON.stringify(value)
+    })
+  }else {
+    await todolist.update({status: true},{
+      where: {
+        id: ctx.request.body.todoid
+      }
+    }).then(value => {
+      ctx.body = JSON.stringify(value)
+    })
+  }
+}
+
 module.exports = {
   getTodoListByid,
-  createTodoList
+  createTodoList,
+  toggleStatus
 }
